@@ -4,20 +4,31 @@ public class PlyerInteractions : MonoBehaviour
 {
     public GameObject currentInterObj = null;
     public InteractionObject currentInterObjScript = null;
+    public DialogueManager dialogueManager; // Add this line
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentInterObj == true)
+        if (Input.GetKeyDown(KeyCode.Space) && currentInterObj)
         {
-            if (currentInterObjScript.info == true)
+            if (currentInterObjScript.info)
             {
                 currentInterObjScript.Info();
             }
-            
-            if (currentInterObjScript.pickup == true)
+
+            if (currentInterObjScript.pickup)
             {
                 currentInterObjScript.Pickup();
             }
+
+            if (currentInterObjScript.dialogue)
+            {
+                dialogueManager.StartDialogue(currentInterObjScript.dialogueText);
+            }
+        }
+
+        if (dialogueManager.dialogueBox.activeInHierarchy && Input.GetKeyDown(KeyCode.Space))
+        {
+            dialogueManager.DisplayNextLine();
         }
     }
 

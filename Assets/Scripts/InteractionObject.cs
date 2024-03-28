@@ -10,9 +10,16 @@ public class InteractionObject : MonoBehaviour
     public bool info;
     public TextMeshProUGUI infoText;
     public string message;
+    public Image infobackground;
 
     [Header("Pickup Object")]
     public bool pickup;
+
+    [Header("Dialogue Object")]
+    public bool dialogue; // Add this line
+    public string[] dialogueText; // Add this line
+    public TextMeshProUGUI dialogueTextUI;
+    private Coroutine dialogueCoroutine;
 
     public void Info()
     {
@@ -22,6 +29,11 @@ public class InteractionObject : MonoBehaviour
             StartCoroutine(ShowInfo(message));
             infoText.gameObject.SetActive(true);
             Debug.Log(message);
+
+            // Set the alpha of the background to 0.5
+            Color backgroundColor = infobackground.color;
+            backgroundColor.a = 0.5f;
+            infobackground.color = backgroundColor;
         }
         else
         {
